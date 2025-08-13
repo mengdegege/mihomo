@@ -174,6 +174,7 @@ dns:
     'rule-set:bing,github': ['https://dns.google/dns-query#bing']
     'rule-set:microsoft': ['https://dns.google/dns-query#bing']
     'rule-set:apple': ['https://dns.google/dns-query#apple']
+    'rule-set:others': ['https://dns.google/dns-query#gfw']
     'rule-set:gfw,bahamut': ['https://dns.google/dns-query#gfw']
 
   #  DNS 增强
@@ -181,7 +182,6 @@ dns:
   fake-ip-range: 198.18.0.1/16
   #fake-ip-filter-mode: blacklist
   fake-ip-filter:
-
 
 #---代理配置---
 proxies:
@@ -468,20 +468,17 @@ rule-providers:
   cnapp:
     <<: *classical-yaml
     path: ./rules/cnapp.yaml
-    url: "https://raw.githubusercontent.com/mengdegege/config/refs/heads/main/rules/cnapp.yaml"
+    url: "https://raw.githubusercontent.com/mengdegege/meta-rules-dat/refs/heads/meta/geo/geosite/classical/cnapp.yaml"
+  except:
+    <<: *classical-yaml
+    path: ./rules/except.yaml
+    url: "https://raw.githubusercontent.com/mengdegege/meta-rules-dat/refs/heads/meta/geo/geosite/classical/except.yaml"
+  others:
+    <<: *classical-yaml
+    path: ./rules/others.yaml
+    url: "https://raw.githubusercontent.com/mengdegege/meta-rules-dat/refs/heads/meta/geo/geosite/classical/others.yaml"
 ### inline ###
-  dom-dns: 
-    type: inline
-    behavior: classical
-    payload:
-      - DOMAIN,dns.alidns.com
-      - DOMAIN,dot.pub
-      - DOMAIN,doh.pub
-      - DOMAIN,dns.pub
-      - DOMAIN,dns.onedns.net
-      - DOMAIN,public1.114dns.com
-      #- DOMAIN-REGEX,^(?!.*(google|g.|bing|apple|microsoft|git|static)).+cn$
-  cdn-filter:
+  cdn-filter: #也不知道有没有用,可能是心理作用吧
     type: inline
     behavior: classical
     payload:
@@ -552,8 +549,10 @@ rules:
   - SUB-RULE,(RULE-SET,microsoft@cn),ms@cn
   - RULE-SET,microsoft,bing
   - RULE-SET,geolocation-cn,DIRECT
+  - RULE-SET,others,gfw
   - OR,((RULE-SET,bahamut),(RULE-SET,gfw)),gfw
 # final
+  - RULE-SET,except,DIRECT
   - RULE-SET,cnapp,DIRECT
   - RULE-SET,cn_ip,DIRECT
   - MATCH,last-stand
