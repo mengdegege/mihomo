@@ -235,7 +235,7 @@ group-anchors:
   fallback: &fallback
     {type: fallback, <<: *check}
   urltest: &g-base
-    {type: url-test, tolerance: 10, interval: 2500, hidden: true}
+    {type: url-test, tolerance: 10, interval: 2500}
 
 #代理组配置
 proxy-groups:
