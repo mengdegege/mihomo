@@ -587,7 +587,7 @@ rules:
   - OR,((RULE-SET,disney),(RULE-SET,hbo),(RULE-SET,hulu)),media
   - PROCESS-NAME,com.google.android.youtube.tv,youtube
 # 网络服务
-  #- SUB-RULE,(RULE-SET,google-cn),google-cn
+  - SUB-RULE,(RULE-SET,google-cn),google-cn
   - OR,((RULE-SET,google),(RULE-SET,riot)),google
   - SUB-RULE,(RULE-SET,microsoft@cn),ms@cn
   - RULE-SET,microsoft,bing
