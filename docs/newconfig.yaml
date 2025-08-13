@@ -92,21 +92,64 @@ global-client-fingerprint: chrome
 ##  .then(res => res.text())
 ##  .then(console.log)
 ##-----------------------------------------------------------------
-external-controller: 127.0.0.1:9090
-#external-controller-tls: 127.0.0.1:9443
+#external-controller: 127.0.0.1:9980
+#external-controller-tls: 0.0.0.0:9943
 #secret: "mihomo"
 #external-ui: ./ui
 #external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
 tls:    # 证书
   certificate: |-
     -----BEGIN CERTIFICATE-----
-    #证书,对齐
+    MIIDQTCCAimgAwIBAgIQAN4/sjfuofqJxs8lVMi0sTANBgkqhkiG9w0BAQsFADAM
+    MQowCAYDVQQDDAEqMB4XDTI1MDgxMzA0MTM1OFoXDTM1MDgxMTA0MTM1OFowDDEK
+    MAgGA1UEAwwBKjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALej6IXK
+    tM2xUXkbuglt/x+bIhvg8Jg/Mr61j9fM1m9m3av80q2XHvqUL+ST6lGfSqdymh5C
+    phQ4IfGaGwx7nckHbmGc1Y4iJf5IECXNL6twPHZdW4/mnM3Ncdv6VjmmBh7LqZac
+    QjbhzUi+76SCEoGxrPVRcG+SuEk8QbDwHbbJ1qaph/9MDegklcfurfAyT85mqERw
+    7shG0QuIHmikIEiYU7Fg+f+l6uv/y08c0OxoeE3gJKzSuO8TtmdxVtJTG721Tmc4
+    tOAJospOBm0YWUj+HLf7ixeTRy14GXXVCtzMU3NGLjIJMLRMGwJbe4lcj49Srj0C
+    sCmn9SMyneCDS48CAwEAAaOBnjCBmzAdBgNVHQ4EFgQUi2noK+61VrAdl4ztdlaw
+    gV/WYTowDgYDVR0PAQH/BAQDAgSwMAwGA1UdEwEB/wQCMAAwOwYDVR0lBDQwMgYI
+    KwYBBQUHAwIGCCsGAQUFBwMBBggrBgEFBQcDAwYIKwYBBQUHAwQGCCsGAQUFBwMI
+    MB8GA1UdIwQYMBaAFItp6CvutVawHZeM7XZWsIFf1mE6MA0GCSqGSIb3DQEBCwUA
+    A4IBAQBEdNhA34R64O+m3EnSSMbtDtUFVOryZNP+pjYY0Ev84RGZ0lcFJt+GAjs7
+    iOpwR72KUz3MAp6wPxa75TL5C+U2F5sJF+vlYN8awo1cgScHecMTOXxpmYYinqfu
+    WRQtrjxisPCVB0y+uXo9ryvD+fEoJI1c5LNhofLUhJbbnlduIrPp2DROdfXfpvHq
+    auAvXnOzzzpHyxpXV/mKeFHuYWWptiPqy7uuWl/JdrWufI1W7qvspjtmgftftxbw
+    bwqiI5C6idqIlNQVASNXbC8RT55mBk6GimQtJ7z79TuxZx8sGW0e+AVsAc1mb1jF
+    9k2LE2mYUg3DsBQ4zrnEDolWI0oW
     -----END CERTIFICATE-----
 
   private-key: |-
     -----BEGIN PRIVATE KEY-----
-    #私钥,对齐
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC3o+iFyrTNsVF5
+    G7oJbf8fmyIb4PCYPzK+tY/XzNZvZt2r/NKtlx76lC/kk+pRn0qncpoeQqYUOCHx
+    mhsMe53JB25hnNWOIiX+SBAlzS+rcDx2XVuP5pzNzXHb+lY5pgYey6mWnEI24c1I
+    vu+kghKBsaz1UXBvkrhJPEGw8B22ydamqYf/TA3oJJXH7q3wMk/OZqhEcO7IRtEL
+    iB5opCBImFOxYPn/perr/8tPHNDsaHhN4CSs0rjvE7ZncVbSUxu9tU5nOLTgCaLK
+    TgZtGFlI/hy3+4sXk0cteBl11QrczFNzRi4yCTC0TBsCW3uJXI+PUq49ArApp/Uj
+    Mp3gg0uPAgMBAAECggEACPPhsxwVwm1hlnDmme0V4fmTKR7HO/TgyXFaiN/AmH/A
+    UNEriDD03qx4xUD8zGvinNU2dEE1jYjLBtdHeE1SfOly1SlrM9mwVnw25VDigQ4g
+    tHiKrTJF9LaOVXYX3AmfBMNTCjel9rz9YA2G61M4CcCauP72Z0oU1+UrIrAiErYh
+    B3HZnAeWBM0NOjmfcNKAv6KpiMKE/6opNj8tvRtwWwpMtavK8/VETrN6nrMkQ1Qy
+    SwkuhBEBZgJ6LnFd3L0Q2NjGSkORvkJmJGqPeoH8rebc5aYbCEEA3BD9cVbBN7dE
+    KuPyqoZ+XRAw4hBNMtRe7pKDA5FrXjHGUe1DFYJOSQKBgQD08KRVJNjDjsOKyda6
+    LE2GJ3heiRXy2GqM+cTXXrNeo9uUAP3mP9HscmH1tTlGpG+jWVC2MdAUMAac4f1B
+    DDsqOtW8h51zQhiRR+qpy7QfaUrnV31Qr1ZzshvSA0qKnA9/T4BcEvq5Qjn3SYtC
+    IUQxiZ6NsziMhyAdQmYYQfLZ2wKBgQC/7q2ylSBbYoH43LF/tVDAL6vuRnLM+AU4
+    QiCLXNsV5ZYRf8p4AYNd6CBVJWfo85A3+LBRnZUnv/FH65G0+WEhg2JnPmflPw/i
+    aRem5qmZeNsggN0KtDGE9B8FzGz4ZyivwBZ2Vw0dBQ5gwcXJdhJL/6ifSjcx2RWf
+    p3Z3dKClXQKBgQCj49xhKC1t9Dl8xP7LRVd9+yz8PEeWXR42Q+1kmfX0zjje+Cbr
+    CCrjRcmsCV1QmjgkmV96+SucRmI2WLQG8TMpV4KqCifc9g3QL8mhYS6dketPjefI
+    s/lponQg+pjG1BM+gSiG8yAWE20LvIbUccPaTZXshE3DIaroSQRdGMtw3wKBgHG9
+    CngawWsGTEli11j75NePKI7ydpOaotU88rZDl505SZ4jIaPOGcArkAWFPjehJqTU
+    ngAvpzVAHMbnBZi+c939UvIl3EHRBiPA7YA9juHg6dIwK01tjS7h0ASKqUTnNQg5
+    h9YnLiE1Xtjd28zQSHV7Er0aqOzEXXkYLy8JES4NAoGAMwTRy5lv/60950erx0yI
+    WInSfQ+qp82DkNPJ+7qOazITna8nuh7xR+ZMY36Rh1gxx+Ic4CpiytcZ8TdzY5GE
+    7ktCKMuP6NecHoAgvv6X9r515ddpXFYg4iRVqw+D1ppRiVNLNPs1HcNLInzTjvQo
+    dMDKSmlQeJ3CRqCMx/Lg7bU=
     -----END PRIVATE KEY-----
+
 
 #---geodata配置---
 geodata-mode: false
