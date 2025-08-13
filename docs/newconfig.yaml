@@ -198,13 +198,13 @@ dns:
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
   direct-nameserver:
-    #- 114.114.114.114
+    - 114.114.114.114
     #- 119.29.29.29
-    - 'quic://dns.alidns.com'
+    #- 'quic://dns.alidns.com'
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
   nameserver:
-    - 'quic://dns.alidns.com'
+    #- 'quic://dns.alidns.com'
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
     #- https://dns.google/dns-query#last-stand
