@@ -97,7 +97,7 @@ global-client-fingerprint: chrome
 #secret: "mihomo"
 #external-ui: ./ui
 #external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
-tls:    # 证书
+tls:    #证书
   certificate: |-
     -----BEGIN CERTIFICATE-----
     MIIDQTCCAimgAwIBAgIQAN4/sjfuofqJxs8lVMi0sTANBgkqhkiG9w0BAQsFADAM
@@ -199,12 +199,13 @@ dns:
     - 'tls://dot.pub'
   direct-nameserver:
     - 114.114.114.114
-    #- 119.29.29.29
+    - 119.29.29.29
+    - 223.5.5.5
     #- 'quic://dns.alidns.com'
-    - 'tls://dot.onedns.net'
-    - 'tls://dot.pub'
+    #- 'tls://dot.onedns.net'
+    #- 'tls://dot.pub'
   nameserver:
-    #- 'quic://dns.alidns.com'
+    - 'quic://dns.alidns.com'
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
     #- https://dns.google/dns-query#last-stand
@@ -587,7 +588,7 @@ rules:
   - OR,((RULE-SET,disney),(RULE-SET,hbo),(RULE-SET,hulu)),media
   - PROCESS-NAME,com.google.android.youtube.tv,youtube
 # 网络服务
-  - SUB-RULE,(RULE-SET,google-cn),google-cn
+  #- SUB-RULE,(RULE-SET,google-cn),google-cn
   - OR,((RULE-SET,google),(RULE-SET,riot)),google
   - SUB-RULE,(RULE-SET,microsoft@cn),ms@cn
   - RULE-SET,microsoft,bing
@@ -597,7 +598,7 @@ rules:
   - RULE-SET,except,DIRECT
   - RULE-SET,cnapp,DIRECT
   - RULE-SET,geolocation-cn,DIRECT
-  - RULE-SET,cn,DIRECT
+  #- RULE-SET,cn,DIRECT
   - RULE-SET,cn_ip,DIRECT
   - MATCH,last-stand
 
