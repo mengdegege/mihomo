@@ -200,8 +200,8 @@ dns:
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
   nameserver:
-    - 'https://dns.google/dns-query#last-stand&ecs=223.5.5.5/32&ecs-override=true'
-    - 'tls://dns.google#last-stand&ecs=223.5.5.5/32&ecs-override=true'
+    - 'tls://dot.onedns.net'
+    - 'tls://dot.pub'
   nameserver-policy: #不知道有没有用,先写着
     'rule-set:google,riot': ['https://dns.google/dns-query#google', 'https://one.one.one.one/dns-query#google']
     'rule-set:spotify': ['https://dns.google/dns-query#spotify', 'https://one.one.one.one/dns-query#spotify']
