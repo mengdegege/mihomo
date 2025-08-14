@@ -342,7 +342,7 @@ proxy-groups:
 ###### 区域筛选 ###
   - name: hk-pref
     proxies:
-      #- REJECT
+      - REJECT
     filter: "(?i)^@pref.*(香港|Hong Kong)"
     include-all-providers: true
     <<: *g-base
@@ -356,7 +356,7 @@ proxy-groups:
     
   - name: sg-pref
     proxies:
-      #- REJECT
+      - REJECT
     filter: "(?i)^@pref.*(新加坡|Singapore)"
     include-all-providers: true
     <<: *g-base
