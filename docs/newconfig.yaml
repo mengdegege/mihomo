@@ -407,10 +407,10 @@ rule-anchors:
 #规则集
 rule-providers:
 ### domain-offical
-  #cn:
-  #  <<: *domain-mrs
-  #  path: ./rules/cn.mrs
-  #  url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cn.mrs"
+  cn:
+    <<: *domain-mrs
+    path: ./rules/cn.mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cn.mrs"
   #  #url: "https://raw.githubusercontent.com/mengdegege/meta-rules-dat/refs/heads/meta/geo/geosite/cn.list"
   geolocation-cn:
     <<: *domain-mrs
@@ -591,12 +591,13 @@ rules:
   - OR,((RULE-SET,google),(RULE-SET,riot)),google
   - SUB-RULE,(RULE-SET,microsoft@cn),ms@cn
   - RULE-SET,microsoft,bing
-  - RULE-SET,geolocation-cn,DIRECT
   - RULE-SET,others,gfw
   - OR,((RULE-SET,bahamut),(RULE-SET,gfw)),gfw
 # final
   - RULE-SET,except,DIRECT
   - RULE-SET,cnapp,DIRECT
+  - RULE-SET,geolocation-cn,DIRECT
+  - RULE-SET,cn,DIRECT
   - RULE-SET,cn_ip,DIRECT
   - MATCH,last-stand
 
