@@ -200,8 +200,7 @@ dns:
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
   nameserver:
-    - 'tls://dot.onedns.net'
-    - 'tls://dot.pub'
+    - 'udp://8.8.8.8#last-stand&ecs=114.114.114.114/32&ecs-override=true'
   nameserver-policy: #不知道有没有用,先写着
     'rule-set:google,riot': ['udp://8.8.8.8#google']
     'rule-set:spotify': ['udp://8.8.8.8#spotify']
