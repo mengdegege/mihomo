@@ -1,16 +1,34 @@
-#---通用锚点---
+#---锚点---
 gen-anchors:
-  # 测试URL
+  # 健康检查
   health: &check
     url: "https://www.gstatic.com/generate_204"
     interval: 3600
     timeout: 5000
+
   # IPv6开关
-  v6: &ipv6
+  ipv6: &ipv6
     ipv6: true
 
-#---订阅配置---
-sub-based-anchors:
+# 代理组公共配置
+  apply: &app
+    {type: select, <<: *check}
+  fallback: &fallback
+    {type: fallback, <<: *check}
+  urltest: &g-base
+    {type: url-test, tolerance: 10, interval: 2500}
+
+#规则集公共配置
+  rp-classical: &classical-yaml 
+    {type: http, interval: 86400, behavior: classical, format: yaml, proxy: res_dl}
+  ip-yaml: &ip-yaml 
+    {type: http, interval: 86400, behavior: ipcidr, format: yaml, proxy: res_dl}
+  ip-mrs: &ip-mrs
+    {type: http, interval: 86400, behavior: ipcidr, format: mrs, proxy: res_dl}
+  domain-mrs: &domain-mrs
+    {type: http, interval: 86400, behavior: domain, format: mrs, proxy: res_dl}
+
+#---订阅基础配置---
   sub-based: &subbased
     type: http
     interval: 86400
@@ -20,7 +38,7 @@ sub-based-anchors:
     health-check:
       enable: true
       <<: *check
-# 订阅资源 header: {authentication: ["t=xxx"]}
+# 订阅资源
   sub1: &sub1 
     url: "https://sub1.url"
     path: ./proxies/store1.yaml
@@ -34,6 +52,7 @@ sub-based-anchors:
     path: ./proxies/store3.yaml
     <<: *subbased
 
+# 代理集
 proxy-providers:
   pref:
     <<: *sub1
@@ -57,7 +76,7 @@ proxy-providers:
 ####################### Profile Enhancement Merge Template for Clash Verge ##############################
 #---侦听配置---
 #mixed-port: 7890
-#tun 配置
+#---tun---
 tun:
   enable: true
   device: utun001
@@ -97,7 +116,7 @@ global-client-fingerprint: chrome
 #secret: "mihomo"
 #external-ui: ./ui
 #external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
-tls:    #证书
+tls:    #外部控制API证书
   certificate: |-
     -----BEGIN CERTIFICATE-----
     MIIDQTCCAimgAwIBAgIQAN4/sjfuofqJxs8lVMi0sTANBgkqhkiG9w0BAQsFADAM
@@ -151,7 +170,7 @@ tls:    #证书
     -----END PRIVATE KEY-----
 
 
-#---geodata配置---
+#---geodata---
 geodata-mode: false
 geodata-loader: memconservative
 #geox-url:
@@ -161,7 +180,7 @@ geodata-loader: memconservative
 #geo-auto-update: true
 #geo-update-interval: 72
 
-#---ntp 配置---用于某些需要时间同步的协议
+#---ntp---用于某些需要时间同步的协议
 ntp:
   enable: true
 # 是否同步至系统时间，需要 root/管理员权限
@@ -200,7 +219,9 @@ dns:
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
   nameserver:
-    - 'https://dns.google/dns-query#last-stand&ecs=8.134.0.0/15&ecs-override=true'
+    - 'tls://dot.onedns.net'
+    - 'tls://dot.pub'
+    #- 'https://dns.google/dns-query#last-stand&ecs=8.134.0.0/15&ecs-override=true'
   nameserver-policy: #不知道有没有用,先写着
     'rule-set:google,riot': ['udp://8.8.8.8#google']
     'rule-set:spotify': ['udp://8.8.8.8#spotify']
@@ -217,18 +238,10 @@ dns:
   #fake-ip-filter-mode: blacklist
   fake-ip-filter:
 
-#---代理配置---
+#---代理---
 proxies:
-# 组公共配置
-group-anchors:
-  apply: &app
-    {type: select, <<: *check}
-  fallback: &fallback
-    {type: fallback, <<: *check}
-  urltest: &g-base
-    {type: url-test, tolerance: 10, interval: 2500}
 
-#代理组配置
+#代理组
 proxy-groups:
   - name: last-stand
     <<: *app
@@ -338,7 +351,7 @@ proxy-groups:
       - REJECT
     <<: *app
 
-###### 区域筛选 ###
+  #### 区域筛选 ###
   - name: hk-pref
     proxies:
       - REJECT
@@ -382,18 +395,6 @@ proxy-groups:
     exclude-filter: "(?i)^(@pref |free )"
     include-all-providers: true
     <<: *g-base
-######
-
-#规则集通用配置
-rule-anchors:
-  rp-classical: &classical-yaml 
-    {type: http, interval: 86400, behavior: classical, format: yaml, proxy: res_dl}
-  ip-yaml: &ip-yaml 
-    {type: http, interval: 86400, behavior: ipcidr, format: yaml, proxy: res_dl}
-  ip-mrs: &ip-mrs
-    {type: http, interval: 86400, behavior: ipcidr, format: mrs, proxy: res_dl}
-  domain-mrs: &domain-mrs
-    {type: http, interval: 86400, behavior: domain, format: mrs, proxy: res_dl}
 
 #规则集
 rule-providers:
@@ -558,7 +559,7 @@ rule-providers:
       - PROCESS-NAME-REGEX,(?i).*max
       - PROCESS-NAME-REGEX,(?i).*wbs\.stream
 
-### 规则 ###
+### 路由规则 ###
 rules:
 # 必~须~滴~
   - RULE-SET,private,DIRECT,no-resolve
