@@ -203,14 +203,14 @@ dns:
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
   nameserver-policy: #不知道有没有用,先写着
-    'rule-set:google,riot': ['https://dns.google/dns-query#google', 'https://one.one.one.one/dns-query#google']
-    'rule-set:spotify': ['https://dns.google/dns-query#spotify', 'https://one.one.one.one/dns-query#spotify']
-    'rule-set:netflix': ['https://dns.google/dns-query#netflix', 'https://one.one.one.one/dns-query#netflix']
-    'rule-set:disney,hbo,hulu': ['https://dns.google/dns-query#media', 'https://one.one.one.one/dns-query#media']
-    #'rule-set:copilot+ip': ['https://dns.google/dns-query#bing']
-    'rule-set:bing,github,microsoft,copilot+ip': ['https://dns.google/dns-query#bing', 'https://one.one.one.one/dns-query#bing']
-    'rule-set:apple': ['https://dns.google/dns-query#apple', 'https://one.one.one.one/dns-query#apple']
-    'rule-set:gfw,bahamut,others': ['https://dns.google/dns-query#gfw', 'https://one.one.one.one/dns-query#gfw']
+    'rule-set:google,riot': ['udp://8.8.8.8#google']
+    'rule-set:spotify': ['udp://8.8.8.8#spotify']
+    'rule-set:netflix': ['udp://8.8.8.8#netflix']
+    'rule-set:disney,hbo,hulu': ['udp://8.8.8.8#media']
+    #'rule-set:copilot+ip': ['udp://8.8.8.8#bing']
+    'rule-set:bing,github,microsoft,copilot+ip': ['udp://8.8.8.8#bing']
+    'rule-set:apple': ['udp://8.8.8.8#apple']
+    'rule-set:gfw,bahamut,others': ['udp://8.8.8.8#gfw']
 
   #  DNS 增强
   enhanced-mode: fake-ip
@@ -232,7 +232,7 @@ group-anchors:
 #代理组配置
 proxy-groups:
   - name: last-stand
-    <<: *fallback
+    <<: *app
     interval: 1800
     timeout: 10000
     proxies:
