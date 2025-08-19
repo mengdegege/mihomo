@@ -603,7 +603,5 @@ sub-rules:
     - MATCH,apple
 
   ms@cn:
-    - PROCESS-NAME,svchost.exe,DIRECT
-    - PROCESS-NAME,OneDrive.exe,DIRECT
-    - PROCESS-NAME,PhoneExperienceHost.exe,DIRECT
-    - PROCESS-NAME,MpDefenderCoreService.exe,DIRECT
+    - PROCESS-NAME-REGEX,(?i)^.*(store).*exe$,PASS
+    - MATCH,DIRECT
