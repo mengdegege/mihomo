@@ -11,12 +11,14 @@ gen-anchors:
     ipv6: true
 
 # 代理组公共配置
-  apply: &app
+  apply: &select
     {type: select, <<: *check}
   fallback: &fallback
     {type: fallback, <<: *check}
-  urltest: &g-base
+  urltest: &urltest
     {type: url-test, tolerance: 10, interval: 2500}
+  load-balance: &lb
+    {<<: *check， type: load-balance, strategy: consistent-hashing, interval:2500}
 
 #规则集公共配置
   rp-classical: &classical-yaml 
@@ -244,7 +246,7 @@ proxies:
 #代理组
 proxy-groups:
   - name: last-stand
-    <<: *app
+    <<: *select
     interval: 1800
     timeout: 10000
     proxies:
@@ -260,14 +262,14 @@ proxy-groups:
     proxies:
       - REJECT
       - PASS
-    <<: *app
+    <<: *select
 
   - name: google
     proxies:
       - us-pref
       - sg-pref
       - hk-pref
-    <<: *app
+    <<: *select
 
   - name: bing
     proxies:
@@ -275,13 +277,13 @@ proxy-groups:
       - tw-pref
       - sg-pref
       - last-stand
-    <<: *app
+    <<: *select
     #url: https://www.msftconnecttest.com/connecttest.txt
 
   - name: media
     proxies:
       - sg-pref
-    <<: *app
+    <<: *select
     #include-all-providers: true
     #filter: "新加坡|Singapore"
     #exclude-filter: "^@pref"
@@ -289,7 +291,7 @@ proxy-groups:
   - name: netflix
     include-all-providers: true
     filter: "(?i)^@pref.*(新加坡|Singapore)"
-    <<: *app
+    <<: *select
     proxies: 
       - media
 
@@ -297,13 +299,13 @@ proxy-groups:
     proxies:
       - hk-pref
       - sg-pref
-    <<: *app
+    <<: *select
    
   - name: apple
     proxies:
       - us-pref
       - DIRECT
-    <<: *app
+    <<: *select
     url: 'https://www.apple.com/library/test/success.html'
 
   - name: gfw
@@ -335,66 +337,66 @@ proxy-groups:
     proxies:
       - audit
       - PASS
-    <<: *app
+    <<: *select
 
   - name: streamer
     interval: 0
     proxies:
       - audit
       - PASS
-    <<: *app
+    <<: *select
 
   - name: audit
     interval: 0
     proxies:
       - PASS
       - REJECT
-    <<: *app
+    <<: *select
 
   #### 区域筛选 ###
   - name: hk-pref
     proxies:
-      - REJECT
+   #   - REJECT
     filter: "(?i)^@pref.*(香港|Hong Kong)"
     include-all-providers: true
-    <<: *g-base
+    <<: *lb
 
   - name: us-pref
     proxies:
-      #- REJECT
+   #   - REJECT
     filter: "(?i)^@pref.*(美国|US|United)"
     include-all-providers: true
-    <<: *g-base
+    <<: *lb
     
   - name: sg-pref
     proxies:
-      - REJECT
+   #   - REJECT
     filter: "(?i)^@pref.*(新加坡|Singapore)"
     include-all-providers: true
-    <<: *g-base
+    <<: *lb
     
   - name: tw-pref
     filter: "(?i)^@pref.*(台湾|Taiwan)"
     include-all-providers: true
-    <<: *g-base
+    <<: *lb
 
   - name: jp-pref
     filter: "(?i)^@pref.*(JP|Japan)"
     include-all-providers: true
-    <<: *g-base
+    <<: *lb
 
   - name: free
     hidden: false
     exclude-filter: "(?i)^(@pref |bak )"
     #filter: "(?i)^free.{0,7}CN"
     include-all-providers: true
-    <<: *g-base
+    <<: *urltest
 
   - name: "bak"
     hidden: false
     exclude-filter: "(?i)^(@pref |free )"
     include-all-providers: true
-    <<: *g-base
+    <<: *urltest
 
 #规则集
 rule-providers:
