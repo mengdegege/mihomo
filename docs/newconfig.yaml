@@ -356,24 +356,24 @@ proxy-groups:
   #### 区域筛选 ###
   - name: hk-pref
     proxies:
-   #   - REJECT
+      - REJECT
     filter: "(?i)^@pref.*(香港|Hong Kong)"
     include-all-providers: true
-    <<: *lb
+    <<: *urltest
 
   - name: us-pref
     proxies:
-   #   - REJECT
+      - REJECT
     filter: "(?i)^@pref.*(美国|US|United)"
     include-all-providers: true
-    <<: *lb
+    <<: *urltest
     
   - name: sg-pref
     proxies:
-   #   - REJECT
+      - REJECT
     filter: "(?i)^@pref.*(新加坡|Singapore)"
     include-all-providers: true
-    <<: *lb
+    <<: *urltest
     
   - name: tw-pref
     filter: "(?i)^@pref.*(台湾|Taiwan)"
@@ -569,9 +569,6 @@ rules:
   - SUB-RULE,(RULE-SET,category-ads-all),ads
   - RULE-SET,apple-cn,DIRECT
   - SUB-RULE,(RULE-SET,apple),apple
-  - RULE-SET,github,last-stand
-  - RULE-SET,copilot+ip,bing
-  - RULE-SET,bing,bing
   - RULE-SET,spotify,spotify
 # 控制一下吧
   - RULE-SET,tv&game,tv&game
@@ -583,6 +580,9 @@ rules:
 # 网络服务
   - RULE-SET,google-cn,DIRECT
   - OR,((RULE-SET,google),(RULE-SET,riot)),google
+  - RULE-SET,copilot+ip,bing
+  - RULE-SET,bing,bing
+  - RULE-SET,github,last-stand
   - SUB-RULE,(RULE-SET,microsoft@cn),ms@cn
   - RULE-SET,microsoft,bing
   - RULE-SET,others,gfw
