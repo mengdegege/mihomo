@@ -18,7 +18,7 @@ gen-anchors:
   urltest: &urltest
     {type: url-test, tolerance: 10, interval: 2500}
   load-balance: &lb
-    {<<: *check， type: load-balance, strategy: consistent-hashing, interval:2500}
+    {<<: *check, type: load-balance, strategy: consistent-hashing, interval:2500}
 
 #规则集公共配置
   rp-classical: &classical-yaml 
