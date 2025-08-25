@@ -553,7 +553,7 @@ rules:
   - OR,((RULE-SET,disney),(RULE-SET,hbo),(RULE-SET,hulu)),media
   - PROCESS-NAME,com.google.android.youtube.tv,youtube
 # 网络服务
-  - RULE-SET,google-cn,DIRECT
+  - SUB-RULE,(RULE-SET,google-cn),google-cn
   - OR,((RULE-SET,google),(RULE-SET,riot)),google
   - RULE-SET,copilot+ip,bing
   - RULE-SET,bing,bing
@@ -575,10 +575,15 @@ sub-rules:
     - RULE-SET,ads-remit,PASS
     - MATCH,REJECT
 
+  google-cn:
+    - IN-NAME,Mihomo-verge,DIRECT
+    - IN-NAME,FlClash,DIRECT
+    - PROCESS-NAME-REGEX,(?i)^.*(edge|chrome),DIRECT
+
   apple:
     - PROCESS-NAME,com.apple.android.music,DIRECT
     - MATCH,apple
 
   ms@cn:
-    - PROCESS-NAME-REGEX,(?i)^.*(store).*exe$,PASS
+    - PROCESS-NAME-REGEX,(?i)^.*(store|msedge|pwa|copilot).*exe$,PASS
     - MATCH,DIRECT
