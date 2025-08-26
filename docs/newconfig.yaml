@@ -184,7 +184,7 @@ dns:
   enable: true
   #listen: 127.0.0.1:1053
   <<: *ipv6
-  prefer-h3: true
+  prefer-h3: false
   respect-rules: false
   use-hosts: true
   default-nameserver:
@@ -196,9 +196,9 @@ dns:
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
   nameserver:
-    - 'tls://dot.onedns.net'
-    - 'tls://dot.pub'
-    #- 'https://dns.google/dns-query#last-stand&ecs=8.134.0.0/15&ecs-override=true'
+    #- 'tls://dot.onedns.net'
+    #- 'tls://dot.pub'
+    - 'https://8.8.8.8/dns-query#last-stand&ecs=202.170.133.0/19&ecs-override=true'
   nameserver-policy: #不知道有没有用,先写着
     'rule-set:google,riot': ['udp://8.8.8.8#google']
     'rule-set:spotify': ['udp://8.8.8.8#spotify']
