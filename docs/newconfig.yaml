@@ -207,7 +207,9 @@ dns:
     'rule-set:copilot+ip': ['udp://8.8.8.8#bing']
     'rule-set:bing,github,microsoft': ['udp://8.8.8.8#bing']
     'rule-set:apple': ['udp://8.8.8.8#apple']
-    'rule-set:gfw,bahamut,others': ['udp://8.8.8.8#gfw']
+    'rule-set:others': ['udp://8.8.8.8#gfw']
+    'rule-set:gfw,bahamut': ['udp://8.8.8.8#gfw']
+    'rule-set:geolocation-cn': [system]
 
   #  DNS 增强
   enhanced-mode: fake-ip
