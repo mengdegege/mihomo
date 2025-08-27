@@ -482,7 +482,7 @@ rule-providers:
     <<: *ip-mrs
     path: ./rules/apple-ip.mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/apple.mrs"
-  cn_ip:
+  cn-ip:
     <<: *ip-yaml
     path: ./rules/cn_ip.yaml
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml"
