@@ -481,7 +481,7 @@ rule-providers:
   apple-ip:
     <<: *ip-mrs
     path: ./rules/apple-ip.mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/apple.mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip-lite/apple.mrs"
   cn-ip:
     <<: *ip-yaml
     path: ./rules/cn_ip.yaml
