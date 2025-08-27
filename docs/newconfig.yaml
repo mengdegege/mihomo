@@ -204,8 +204,8 @@ dns:
     'rule-set:spotify': ['udp://8.8.8.8#spotify']
     'rule-set:netflix': ['udp://8.8.8.8#netflix']
     'rule-set:disney,hbo,hulu': ['udp://8.8.8.8#media']
-    #'rule-set:copilot+ip': ['udp://8.8.8.8#bing']
-    'rule-set:bing,github,microsoft,copilot+ip': ['udp://8.8.8.8#bing']
+    'rule-set:copilot+ip': ['udp://8.8.8.8#bing']
+    'rule-set:bing,github,microsoft': ['udp://8.8.8.8#bing']
     'rule-set:apple': ['udp://8.8.8.8#apple']
     'rule-set:gfw,bahamut,others': ['udp://8.8.8.8#gfw']
 
