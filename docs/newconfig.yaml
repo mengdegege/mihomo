@@ -200,6 +200,7 @@ dns:
     #- 'tls://dot.pub'
     - 'tls://8.8.8.8#last-stand&ecs=218.107.50.0/23&ecs-override=true'
   nameserver-policy: #不知道有没有用,先写着
+    'rule-set:google-cn': ['tls://8.8.8.8#google&ecs=218.107.50.0/23&ecs-override=true']
     'rule-set:google,riot': ['udp://8.8.8.8#google']
     'rule-set:spotify': ['udp://8.8.8.8#spotify']
     'rule-set:netflix': ['udp://8.8.8.8#netflix']
@@ -216,6 +217,9 @@ dns:
   fake-ip-range: 198.18.0.1/16
   #fake-ip-filter-mode: blacklist
   fake-ip-filter:
+    - 'rule-set:google-cn'
+    - 'rule-set:apple-cn'
+    - 'rule-set:microsoft@cn'
 
 #---代理---
 proxies:
@@ -466,10 +470,18 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/riot.mrs"
 
 ### IP
-  private:
+  private-ip:
     <<: *ip-mrs
-    path: ./rules/private_ip.mrs
+    path: ./rules/private-ip.mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/private.mrs"
+  google-ip:
+    <<: *ip-mrs
+    path: ./rules/google-ip.mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/google.mrs"
+  apple-ip:
+    <<: *ip-mrs
+    path: ./rules/apple-ip.mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/apple.mrs"
   cn_ip:
     <<: *ip-yaml
     path: ./rules/cn_ip.yaml
@@ -541,7 +553,7 @@ rule-providers:
 ### 路由规则 ###
 rules:
 # 必~须~滴~
-  - RULE-SET,private,DIRECT,no-resolve
+  - RULE-SET,private-ip,DIRECT,no-resolve
   - RULE-SET,googlefcm,google
   - SUB-RULE,(RULE-SET,category-ads-all),ads
   - RULE-SET,apple-cn,DIRECT
@@ -569,7 +581,9 @@ rules:
   - RULE-SET,except,DIRECT
   #- RULE-SET,geolocation-cn,DIRECT
   - RULE-SET,cn,DIRECT
-  - RULE-SET,cn_ip,DIRECT
+  - RULE-SET,cn-ip,DIRECT
+  - RULE-SET,google-ip,google
+  - RULE-SET,apple-ip,apple
   - MATCH,last-stand
 
 sub-rules:
