@@ -381,10 +381,10 @@ rule-providers:
     path: ./rules/cn.mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cn.mrs"
     #url: "https://raw.githubusercontent.com/mengdegege/meta-rules-dat/refs/heads/meta/geo/geosite/cn.list"
-  #geolocation-cn:
-  #  <<: *domain-mrs
-  #  path: ./rules/geolocation-!cn.mrs
-  #  url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/geolocation-cn.mrs"
+  geolocation-cn:
+    <<: *domain-mrs
+    path: ./rules/geolocation-cn.mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/geolocation-cn.mrs"
   gfw:
     <<: *domain-mrs
     path: ./rules/gfw.mrs
