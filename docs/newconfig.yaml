@@ -481,7 +481,7 @@ rule-providers:
   apple-ip:
     <<: *ip-mrs
     path: ./rules/apple-ip.mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip-lite/apple.mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/apple.mrs"
   cn-ip:
     <<: *ip-yaml
     path: ./rules/cn_ip.yaml
@@ -582,8 +582,8 @@ rules:
   #- RULE-SET,geolocation-cn,DIRECT
   - RULE-SET,cn,DIRECT
   - RULE-SET,cn-ip,DIRECT
-  - RULE-SET,google-ip,google
   - RULE-SET,apple-ip,apple
+  - RULE-SET,google-ip,google
   - MATCH,last-stand
 
 sub-rules:
