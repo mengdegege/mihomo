@@ -184,7 +184,7 @@ dns:
   enable: true
   #listen: 127.0.0.1:1053
   <<: *ipv6
-  prefer-h3: false
+  prefer-h3: true
   respect-rules: false
   use-hosts: true
   default-nameserver:
@@ -198,18 +198,20 @@ dns:
   nameserver:
     #- 'tls://dot.onedns.net'
     #- 'tls://dot.pub'
-    - 'tls://8.8.8.8#last-stand&ecs=218.107.50.0/23&ecs-override=true'
+    - 'https://8.8.8.8/dns-query#last-stand&ecs=218.107.50.0/23&ecs-override=true'
   nameserver-policy: #不知道有没有用,先写着
-    'rule-set:google-cn': ['tls://8.8.8.8#google&ecs=218.107.50.0/23&ecs-override=true']
-    'rule-set:google,riot': ['udp://8.8.8.8#google']
-    'rule-set:spotify': ['udp://8.8.8.8#spotify']
-    'rule-set:netflix': ['udp://8.8.8.8#netflix']
-    'rule-set:disney,hbo,hulu': ['udp://8.8.8.8#media']
-    'rule-set:copilot+ip': ['udp://8.8.8.8#bing']
-    'rule-set:bing,github,microsoft': ['udp://8.8.8.8#bing']
-    'rule-set:apple': ['udp://8.8.8.8#apple']
-    'rule-set:others': ['udp://8.8.8.8#gfw']
-    'rule-set:gfw,bahamut': ['udp://8.8.8.8#gfw']
+    'rule-set:google-cn': ['https://8.8.8.8/dns-query#google&ecs=218.107.50.0/23&ecs-override=true']
+    'rule-set:google,riot': ['https://8.8.8.8/dns-query#google']
+    'rule-set:spotify': ['https://8.8.8.8/dns-query#spotify']
+    'rule-set:netflix': ['https://8.8.8.8/dns-query#netflix']
+    'rule-set:disney,hbo,hulu': ['https://8.8.8.8/dns-query#media']
+    'rule-set:copilot+ip': ['https://8.8.8.8/dns-query#bing']
+    'rule-set:microsoft@cn': ['https://8.8.8.8/dns-query#bing&ecs=218.107.50.0/23&ecs-override=true']
+    'rule-set:bing,github,microsoft': ['https://8.8.8.8/dns-query#bing']
+    'rule-set:apple-cn': ['https://8.8.8.8/dns-query#apple&ecs=218.107.50.0/23&ecs-override=true']
+    'rule-set:apple': ['https://8.8.8.8/dns-query#apple']
+    'rule-set:others': ['https://8.8.8.8/dns-query#gfw']
+    'rule-set:gfw,bahamut': ['https://8.8.8.8/dns-query#gfw']
     'rule-set:geolocation-cn': [system]
 
   #  DNS 增强
@@ -219,6 +221,7 @@ dns:
   fake-ip-filter:
     - 'rule-set:google-cn'
     - 'rule-set:apple-cn'
+    - 'rule-set:cloudflare-cn'
     - 'rule-set:microsoft@cn'
 
 #---代理---
@@ -473,19 +476,24 @@ rule-providers:
   private-ip:
     <<: *ip-mrs
     path: ./rules/private-ip.mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/private.mrs"
-  google-ip:
-    <<: *ip-mrs
-    path: ./rules/google-ip.mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/google.mrs"
-  apple-ip:
-    <<: *ip-mrs
-    path: ./rules/apple-ip.mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/apple.mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/private.mrs"
   cn-ip:
     <<: *ip-yaml
     path: ./rules/cn_ip.yaml
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml"
+  google-ip:
+    <<: *ip-mrs
+    path: ./rules/google-ip.mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/google.mrs"
+  apple-ip:
+    <<: *ip-mrs
+    path: ./rules/apple-ip.mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/apple.mrs"
+  cloudflare-ip:
+    <<: *ip-mrs
+    path: ./rules/cloudflare-ip.mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/cloudflare.mrs"
+
 ### customer ###
   copilot+ip:
     <<: *classical-yaml
@@ -567,12 +575,12 @@ rules:
   - OR,((RULE-SET,disney),(RULE-SET,hbo),(RULE-SET,hulu)),media
   - PROCESS-NAME,com.google.android.youtube.tv,youtube
 # 网络服务
-  - SUB-RULE,(RULE-SET,google-cn),google-cn
+  #- SUB-RULE,(RULE-SET,google-cn),google-cn
   - OR,((RULE-SET,google),(RULE-SET,riot)),google
   - RULE-SET,copilot+ip,bing
   - RULE-SET,bing,bing
   - RULE-SET,github,last-stand
-  - SUB-RULE,(RULE-SET,microsoft@cn),ms@cn
+  #- SUB-RULE,(RULE-SET,microsoft@cn),ms@cn
   - RULE-SET,microsoft,bing
   - RULE-SET,others,gfw
   - OR,((RULE-SET,bahamut),(RULE-SET,gfw)),gfw
@@ -580,11 +588,11 @@ rules:
   - RULE-SET,cnapp,DIRECT
   - RULE-SET,except,DIRECT
   #- RULE-SET,geolocation-cn,DIRECT
-  - RULE-SET,cn,DIRECT
-  - RULE-SET,cn-ip,DIRECT
-  - RULE-SET,apple-ip,apple
-  - RULE-SET,google-ip,google
-  - MATCH,last-stand
+  - SUB-RULE,(NOT,((RULE-SET,cn))),cn-filter
+  #- RULE-SET,cn-ip,DIRECT
+  #- RULE-SET,apple-ip,apple
+  #- RULE-SET,google-ip,google
+  - MATCH,DIRECT
 
 sub-rules:
   ads:
@@ -603,3 +611,9 @@ sub-rules:
   ms@cn:
     - PROCESS-NAME-REGEX,(?i)^.*(store|msedge|pwa|copilot).*exe$,PASS
     - MATCH,DIRECT
+
+  cn-filter:
+    - RULE-SET,cn-ip,DIRECT
+    - RULE-SET,apple-ip,apple
+    - RULE-SET,google-ip,google
+    - MATCH,last-stand
