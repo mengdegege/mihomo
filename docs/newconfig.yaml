@@ -173,6 +173,7 @@ hosts:
   dot.pub: [1.12.12.12]
   doh.pub: [1.12.12.12]
   dns.onedns.net: [52.80.248.44]
+  doh-pure.onedns.net: [54.223.159.81]
   one.one.one.one: [1.0.0.1, 1.1.1.1]
   dns.google: [8.8.8.8, 8.8.4.4]
   route.me: 192.168.88.8
@@ -184,35 +185,35 @@ dns:
   enable: true
   #listen: 127.0.0.1:1053
   <<: *ipv6
-  prefer-h3: true
+  prefer-h3: false
   respect-rules: false
   use-hosts: true
   default-nameserver:
     - 114.114.114.114
   proxy-server-nameserver:
-    - 'tls://dot.onedns.net'
-    - 'tls://dot.pub'
+    - 'https://doh-pure.onedns.net/dns-query'
+    - 'https://doh.pub/dns-query'
   #direct-nameserver:
   #  - 'tls://dot.onedns.net'
   #  - 'tls://dot.pub'
   nameserver:
     #- 'tls://dot.onedns.net'
     #- 'tls://dot.pub'
-    - 'tls://dns.google#last-stand&ecs=218.107.50.0/23&ecs-override=true'
+    - 'https://dns.google/dns-query#last-stand&ecs=218.107.50.0/23&ecs-override=true'
   nameserver-policy: #不知道有没有用,先写着
-    'rule-set:google-cn': ['tls://dns.google#google&ecs=218.107.50.0/23&ecs-override=true']
-    'rule-set:google,riot': ['tls://dns.google#google']
-    'rule-set:spotify': ['tls://dns.google#spotify']
-    'rule-set:netflix': ['tls://dns.google#netflix']
-    'rule-set:disney,hbo,hulu': ['tls://dns.google#media']
-    'rule-set:copilot+ip': ['tls://dns.google#bing']
-    'rule-set:microsoft@cn': ['tls://dns.google#bing&ecs=218.107.50.0/23&ecs-override=true']
-    'rule-set:bing,github,microsoft': ['tls://dns.google#bing']
-    'rule-set:apple-cn': ['tls://dns.google#apple&ecs=218.107.50.0/23&ecs-override=true']
-    'rule-set:apple': ['tls://dns.google#apple']
-    'rule-set:others': ['tls://dns.google#gfw']
-    'rule-set:gfw,bahamut': ['tls://dns.google#gfw']
-    'rule-set:cn': ['tls://dot.pub', 'tls://dot.onedns.net']
+    'rule-set:google-cn': ['https://dns.google/dns-query#google&ecs=218.107.50.0/23&ecs-override=true']
+    'rule-set:google,riot': ['https://dns.google/dns-query#google']
+    'rule-set:spotify': ['https://dns.google/dns-query#spotify']
+    'rule-set:netflix': ['https://dns.google/dns-query#netflix']
+    'rule-set:disney,hbo,hulu': ['https://dns.google/dns-query#media']
+    'rule-set:copilot+ip': ['https://dns.google/dns-query#bing']
+    'rule-set:microsoft@cn': ['https://dns.google/dns-query#bing&ecs=218.107.50.0/23&ecs-override=true']
+    'rule-set:bing,github,microsoft': ['https://dns.google/dns-query#bing']
+    'rule-set:apple-cn': ['https://dns.google/dns-query#apple&ecs=218.107.50.0/23&ecs-override=true']
+    'rule-set:apple': ['https://dns.google/dns-query#apple']
+    'rule-set:others': ['https://dns.google/dns-query#gfw']
+    'rule-set:gfw,bahamut': ['https://dns.google/dns-query#gfw']
+    'rule-set:cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
 
   #  DNS 增强
   enhanced-mode: fake-ip
