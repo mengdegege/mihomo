@@ -567,7 +567,7 @@ rules:
   - RULE-SET,private-ip,DIRECT,no-resolve
   - RULE-SET,googlefcm,google
   - SUB-RULE,(RULE-SET,category-ads-all),ads
-  - RULE-SET,apple-cn,DIRECT
+  - SUB-RULE,(RULE-SET,apple-cn),cn-filter
   - SUB-RULE,(RULE-SET,apple),apple
   - RULE-SET,spotify,spotify
 # 控制一下吧
@@ -578,12 +578,12 @@ rules:
   - OR,((RULE-SET,disney),(RULE-SET,hbo),(RULE-SET,hulu)),media
   - PROCESS-NAME,com.google.android.youtube.tv,youtube
 # 网络服务
-  #- SUB-RULE,(RULE-SET,google-cn),google-cn
+  - SUB-RULE,(RULE-SET,google-cn),cn-filter
   - OR,((RULE-SET,google),(RULE-SET,riot)),google
   - RULE-SET,copilot+ip,bing
   - RULE-SET,bing,bing
   - RULE-SET,github,last-stand
-  #- SUB-RULE,(RULE-SET,microsoft@cn),ms@cn
+  - SUB-RULE,(RULE-SET,microsoft@cn),cn-filter
   - RULE-SET,microsoft,bing
   - RULE-SET,others,gfw
   - OR,((RULE-SET,bahamut),(RULE-SET,gfw)),gfw
