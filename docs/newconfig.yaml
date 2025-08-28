@@ -192,9 +192,9 @@ dns:
   proxy-server-nameserver:
     - 'tls://dot.onedns.net'
     - 'tls://dot.pub'
-  direct-nameserver:
-    - 'tls://dot.onedns.net'
-    - 'tls://dot.pub'
+  #direct-nameserver:
+  #  - 'tls://dot.onedns.net'
+  #  - 'tls://dot.pub'
   nameserver:
     #- 'tls://dot.onedns.net'
     #- 'tls://dot.pub'
@@ -212,7 +212,7 @@ dns:
     'rule-set:apple': ['tls://dns.google#apple']
     'rule-set:others': ['tls://dns.google#gfw']
     'rule-set:gfw,bahamut': ['tls://dns.google#gfw']
-    'rule-set:geolocation-cn': [system]
+    'rule-set:cn': ['tls://dot.pub', 'tls://dot.onedns.net']
 
   #  DNS 增强
   enhanced-mode: fake-ip
@@ -224,6 +224,7 @@ dns:
     - 'rule-set:apple-cn'
     - 'rule-set:cloudflare-cn'
     - 'rule-set:microsoft@cn'
+    - 'rule-set:cn'
 
 #---代理---
 proxies:
