@@ -565,7 +565,7 @@ rule-providers:
 rules:
 # 必~须~滴~
   - RULE-SET,private-ip,DIRECT,no-resolve
-  - RULE-SET,googlefcm,google
+  #- RULE-SET,googlefcm,google
   - SUB-RULE,(RULE-SET,category-ads-all),ads
   - SUB-RULE,(RULE-SET,apple-cn),cn-filter
   - SUB-RULE,(RULE-SET,apple),apple
@@ -590,7 +590,7 @@ rules:
 # final
   - RULE-SET,cnapp,DIRECT
   - RULE-SET,except,DIRECT
-  #- RULE-SET,geolocation-cn,DIRECT
+  - SUB-RULE,(RULE-SET,cloudflare-cn),cn-filter
   - SUB-RULE,(NOT,((RULE-SET,cn))),cn-filter
   #- RULE-SET,cn-ip,DIRECT
   #- RULE-SET,apple-ip,apple
