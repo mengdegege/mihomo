@@ -586,7 +586,7 @@ rules:
   - RULE-SET,copilot+ip,bing
   - RULE-SET,bing,bing
   - RULE-SET,github,last-stand
-  - SUB-RULE,(RULE-SET,microsoft@cn),cn-filter
+  - SUB-RULE,(RULE-SET,microsoft@cn),ms@cn
   - RULE-SET,microsoft,bing
   - RULE-SET,others,gfw
   - OR,((RULE-SET,bahamut),(RULE-SET,gfw)),gfw
