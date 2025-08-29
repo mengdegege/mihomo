@@ -228,7 +228,8 @@ dns:
 
 #---代理---
 proxies:
-
+  - name: dns-internal
+    type: dns
 #代理组
 proxy-groups:
   - name: last-stand
@@ -574,6 +575,7 @@ rule-providers:
 ### 路由规则 ###
 rules:
 # 必~须~滴~
+  - DST-PORT,53,dns-internal
   - RULE-SET,private-ip,DIRECT,no-resolve
   - RULE-SET,googlefcm,google
   - SUB-RULE,(RULE-SET,category-ads-all),ads
