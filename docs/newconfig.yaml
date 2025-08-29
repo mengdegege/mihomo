@@ -602,7 +602,7 @@ rules:
   - RULE-SET,except,DIRECT
   - RULE-SET,cn,DIRECT
   - RULE-SET,cn-ip,DIRECT
-  - MATCH,last-land
+  - MATCH,last-stand
 
 sub-rules:
   ads:
