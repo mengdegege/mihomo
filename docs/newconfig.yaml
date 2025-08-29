@@ -221,7 +221,7 @@ dns:
     - 'rule-set:google-cn'
     - 'rule-set:googlefcm'
     #- 'rule-set:apple-cn'
-    - 'rule-set:dnsipFilter'
+    - 'rule-set:dns-ipFilter'
     #- 'rule-set:cloudflare-cn'
     #- 'rule-set:microsoft@cn'
     #- 'rule-set:cn'
