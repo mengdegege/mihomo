@@ -608,7 +608,7 @@ sub-rules:
     - MATCH,REJECT
 
   google-cn:
-    - PROCESS-NAME-REGEX,(?i)^.*(edge|chrome|google),DIRECT
+    - PROCESS-NAME-REGEX,(?i)^.*(google),PASS
     - MATCH,DIRECT
 
   apple:
