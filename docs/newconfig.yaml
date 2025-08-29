@@ -169,9 +169,9 @@ ntp:
 # --- 域名解析 ---
 # hosts
 hosts:
-  #dns.alidns.com: [223.5.5.5]
-  #dot.pub: [1.12.12.12]
-  #doh.pub: [1.12.12.12]
+  dns.alidns.com: [223.5.5.5]
+  dot.pub: [1.12.12.12]
+  doh.pub: [1.12.12.12]
   one.one.one.one: [1.0.0.1, 1.1.1.1]
   dns.google: [8.8.8.8, 8.8.4.4]
   route.me: 192.168.88.8
@@ -187,44 +187,40 @@ dns:
   respect-rules: false
   use-hosts: true
   default-nameserver:
-    - system
+    - 114.114.114.114
   proxy-server-nameserver:
     - 'https://doh-pure.onedns.net/dns-query'
     - 'https://doh.pub/dns-query'
-  #direct-nameserver:
-    #- 'tls://dot.onedns.net'
-    #- 'tls://dot.pub'
+  direct-nameserver:
+    - 'tls://dot-pure.onedns.net'
+    - 'tls://dot.pub'
   nameserver:
     #- 'tls://dot.onedns.net'
     #- 'tls://dot.pub'
     - 'https://dns.google/dns-query#last-stand&ecs=218.107.50.0/23&ecs-override=true'
   nameserver-policy: #不知道有没有用,先写着
-    'rule-set:google-cn': ['https://dns.google/dns-query#google&ecs=218.107.50.0/23&ecs-override=true']
+    #'rule-set:google-cn': ['https://dns.google/dns-query#google&ecs=218.107.50.0/23&ecs-override=true']
     'rule-set:google,riot': ['https://dns.google/dns-query#google']
     'rule-set:spotify': ['https://dns.google/dns-query#spotify']
     'rule-set:netflix': ['https://dns.google/dns-query#netflix']
     'rule-set:disney,hbo,hulu': ['https://dns.google/dns-query#media']
     'rule-set:copilot+ip': ['https://dns.google/dns-query#bing']
-    'rule-set:microsoft@cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
+    #'rule-set:microsoft@cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
     'rule-set:bing,github,microsoft': ['https://dns.google/dns-query#bing']
-    'rule-set:apple-cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
+    #'rule-set:apple-cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
     'rule-set:apple': ['https://dns.google/dns-query#apple']
     'rule-set:others': ['https://dns.google/dns-query#gfw']
     'rule-set:gfw,bahamut': ['https://dns.google/dns-query#gfw']
-    'rule-set:cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
+    #'rule-set:cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
 
   #  DNS 增强
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   #fake-ip-filter-mode: blacklist
   fake-ip-filter:
-    - 'rule-set:google-cn'
+    #- 'rule-set:google-cn'
     - 'rule-set:googlefcm'
-    #- 'rule-set:apple-cn'
     - 'rule-set:dns-ipFilter'
-    #- 'rule-set:cloudflare-cn'
-    #- 'rule-set:microsoft@cn'
-    #- 'rule-set:cn'
 
 #---代理---
 proxies:
@@ -612,9 +608,8 @@ sub-rules:
     - MATCH,REJECT
 
   google-cn:
-    - PROCESS-NAME-REGEX,(?i)^.*(edge|chrome),DIRECT
-    - RULE-SET,cn-ip,DIRECT
-    - MATCH,google
+    - PROCESS-NAME-REGEX,(?i)^.*(edge|chrome|google),DIRECT
+    - MATCH,DIRECT
 
   apple:
     - PROCESS-NAME,com.apple.android.music,DIRECT
