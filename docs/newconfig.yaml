@@ -172,8 +172,8 @@ hosts:
   dns.alidns.com: [223.5.5.5]
   dot.pub: [1.12.12.12]
   doh.pub: [1.12.12.12]
-  dns.onedns.net: [52.80.248.44]
-  doh-pure.onedns.net: [54.223.159.81]
+  #dns.onedns.net: [52.80.248.44]
+  #doh-pure.onedns.net: [54.223.159.81]
   one.one.one.one: [1.0.0.1, 1.1.1.1]
   dns.google: [8.8.8.8, 8.8.4.4]
   route.me: 192.168.88.8
@@ -189,7 +189,7 @@ dns:
   respect-rules: false
   use-hosts: true
   default-nameserver:
-    - 114.114.114.114
+    - system
   proxy-server-nameserver:
     - 'https://doh-pure.onedns.net/dns-query'
     - 'https://doh.pub/dns-query'
