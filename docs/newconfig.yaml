@@ -169,11 +169,9 @@ ntp:
 # --- 域名解析 ---
 # hosts
 hosts:
-  dns.alidns.com: [223.5.5.5]
-  dot.pub: [1.12.12.12]
-  doh.pub: [1.12.12.12]
-  #dns.onedns.net: [52.80.248.44]
-  #doh-pure.onedns.net: [54.223.159.81]
+  #dns.alidns.com: [223.5.5.5]
+  #dot.pub: [1.12.12.12]
+  #doh.pub: [1.12.12.12]
   one.one.one.one: [1.0.0.1, 1.1.1.1]
   dns.google: [8.8.8.8, 8.8.4.4]
   route.me: 192.168.88.8
@@ -220,9 +218,10 @@ dns:
   fake-ip-range: 198.18.0.1/16
   #fake-ip-filter-mode: blacklist
   fake-ip-filter:
-    #- 'rule-set:google-cn'
+    - 'rule-set:google-cn'
     - 'rule-set:googlefcm'
-    #- 'rule-set:apple-cn'
+    - 'rule-set:apple-cn'
+    - 'rule-set:dnsipFilter'
     #- 'rule-set:cloudflare-cn'
     #- 'rule-set:microsoft@cn'
     #- 'rule-set:cn'
@@ -487,14 +486,14 @@ rule-providers:
     <<: *ip-yaml
     path: ./rules/cn_ip.yaml
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml"
-  google-ip:
-    <<: *ip-mrs
-    path: ./rules/google-ip.mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/google.mrs"
-  apple-ip:
-    <<: *ip-mrs
-    path: ./rules/apple-ip.mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/apple.mrs"
+  #google-ip:
+  #  <<: *ip-mrs
+  #  path: ./rules/google-ip.mrs
+  #  url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/google.mrs"
+  #apple-ip:
+  #  <<: *ip-mrs
+  #  path: ./rules/apple-ip.mrs
+  #  url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo-lite/geoip/apple.mrs"
   #cloudflare-ip:
   #  <<: *ip-mrs
   #  path: ./rules/cloudflare-ip.mrs
@@ -537,6 +536,14 @@ rule-providers:
       - DOMAIN-REGEX,^(?!.*gstatic).*static.*
       - DOMAIN-REGEX,^(?!.*msedge).*edge.*
 
+  dns-ipFilter:
+    behavior: classical
+    type: inline
+    payload:
+      - DOMAIN-KEYWORD,dns
+      - DOMAIN-KEYWORD,doh
+      - DOMAIN-KEYWORD,dot
+
   ads-remit:
     behavior: classical
     type: inline
@@ -568,9 +575,9 @@ rule-providers:
 rules:
 # 必~须~滴~
   - RULE-SET,private-ip,DIRECT,no-resolve
-  #- RULE-SET,googlefcm,google
+  - RULE-SET,googlefcm,google
   - SUB-RULE,(RULE-SET,category-ads-all),ads
-  - SUB-RULE,(RULE-SET,apple-cn),cn-filter
+  - RULE-SET,apple-cn,DIRECT
   - SUB-RULE,(RULE-SET,apple),apple
   - RULE-SET,spotify,spotify
 # 控制一下吧
@@ -593,12 +600,9 @@ rules:
 # final
   - RULE-SET,cnapp,DIRECT
   - RULE-SET,except,DIRECT
-  - SUB-RULE,(RULE-SET,cloudflare-cn),cn-filter
-  - SUB-RULE,(NOT,((RULE-SET,cn))),cn-filter
-  #- RULE-SET,cn-ip,DIRECT
-  #- RULE-SET,apple-ip,apple
-  #- RULE-SET,google-ip,google
-  - MATCH,DIRECT
+  - RULE-SET,cn,DIRECT
+  - RULE-SET,cn-ip,DIRECT
+  - MATCH,last-land
 
 sub-rules:
   ads:
@@ -606,9 +610,9 @@ sub-rules:
     - MATCH,REJECT
 
   google-cn:
-    - IN-NAME,Mihomo-verge,DIRECT
-    - IN-NAME,FlClash,DIRECT
     - PROCESS-NAME-REGEX,(?i)^.*(edge|chrome),DIRECT
+    - RULE-SET,cn-ip,DIRECT
+    - MATCH,google
 
   apple:
     - PROCESS-NAME,com.apple.android.music,DIRECT
@@ -617,9 +621,3 @@ sub-rules:
   ms@cn:
     - PROCESS-NAME-REGEX,(?i)^.*(store|msedge|pwa|copilot).*exe$,PASS
     - MATCH,DIRECT
-
-  cn-filter:
-    - RULE-SET,cn-ip,DIRECT
-    - RULE-SET,apple-ip,apple
-    - RULE-SET,google-ip,google
-    - MATCH,last-stand
