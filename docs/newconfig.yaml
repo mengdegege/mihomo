@@ -189,29 +189,29 @@ dns:
   default-nameserver:
     - 114.114.114.114
   proxy-server-nameserver:
-    - 'https://doh-pure.onedns.net/dns-query'
-    - 'https://doh.pub/dns-query'
+    - 'tls://dot-pure.onedns.net'
+    - 'tls://dot.pub'
   direct-nameserver:
     - 'tls://dot-pure.onedns.net'
     - 'tls://dot.pub'
   nameserver:
     #- 'tls://dot.onedns.net'
     #- 'tls://dot.pub'
-    - 'https://dns.google/dns-query#last-stand&ecs=218.107.50.0/23&ecs-override=true'
+    - 'tls://dns.google#last-stand&ecs=218.107.50.0/23&ecs-override=true'
   nameserver-policy: #不知道有没有用,先写着
-    #'rule-set:google-cn': ['https://dns.google/dns-query#google&ecs=218.107.50.0/23&ecs-override=true']
-    'rule-set:google,riot': ['https://dns.google/dns-query#google']
-    'rule-set:spotify': ['https://dns.google/dns-query#spotify']
-    'rule-set:netflix': ['https://dns.google/dns-query#netflix']
-    'rule-set:disney,hbo,hulu': ['https://dns.google/dns-query#media']
-    'rule-set:copilot+ip': ['https://dns.google/dns-query#bing']
-    #'rule-set:microsoft@cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
-    'rule-set:bing,github,microsoft': ['https://dns.google/dns-query#bing']
-    #'rule-set:apple-cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
-    'rule-set:apple': ['https://dns.google/dns-query#apple']
-    'rule-set:others': ['https://dns.google/dns-query#gfw']
-    'rule-set:gfw,bahamut': ['https://dns.google/dns-query#gfw']
-    #'rule-set:cn': ['https://doh.pub/dns-query', 'https://doh-pure.onedns.net/dns-query']
+    #'rule-set:google-cn': ['tls://dns.google#google&ecs=218.107.50.0/23&ecs-override=true']
+    'rule-set:google,riot': ['tls://dns.google#google']
+    'rule-set:spotify': ['tls://dns.google#spotify']
+    'rule-set:netflix': ['tls://dns.google#netflix']
+    'rule-set:disney,hbo,hulu': ['tls://dns.google#media']
+    'rule-set:copilot+ip': ['tls://dns.google#bing']
+    #'rule-set:microsoft@cn': ['tls://dot.pub', 'tls://dot-pure.onedns.net']
+    'rule-set:bing,github,microsoft': ['tls://dns.google#bing']
+    #'rule-set:apple-cn': ['tls://dot.pub', 'tls://dot-pure.onedns.net']
+    'rule-set:apple': ['tls://dns.google#apple']
+    'rule-set:others': ['tls://dns.google#gfw']
+    'rule-set:gfw,bahamut': ['tls://dns.google#gfw']
+    #'rule-set:cn': ['tls://dot.pub', 'tls://dot-pure.onedns.net']
 
   #  DNS 增强
   enhanced-mode: fake-ip
