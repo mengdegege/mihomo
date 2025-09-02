@@ -226,6 +226,11 @@ dns:
 proxies:
   - name: dns-internal
     type: dns
+
+  - name: "http"
+    type: http
+    server: server
+    port: 443
 #代理组
 proxy-groups:
   - name: last-stand
@@ -339,21 +344,21 @@ proxy-groups:
   #### 区域筛选 ###
   - name: hk-pref
     proxies:
-      - REJECT
+      - http
     filter: "(?i)^@pref.*(香港|Hong Kong)"
     include-all-providers: true
     <<: *urltest
 
   - name: us-pref
     proxies:
-      - REJECT
+      - http
     filter: "(?i)^@pref.*(美国|US|United)"
     include-all-providers: true
     <<: *urltest
     
   - name: sg-pref
     proxies:
-      - REJECT
+      - http
     filter: "(?i)^@pref.*(新加坡|Singapore)"
     include-all-providers: true
     <<: *urltest
